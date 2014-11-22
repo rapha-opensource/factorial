@@ -54,6 +54,7 @@ def expand_factors(factors):
 
 c = []
 f = ff(n, 200, c)
+print(n)
 print( f )
 print( len(f) )
 print( expand_factors(f) == n )
