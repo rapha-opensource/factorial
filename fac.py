@@ -1,16 +1,7 @@
-#!/usr/bin/env python3.3
-
 import random
 import math
 import zlib
 import pickle
-
-def fact2(n):
-    result = 1
-    for i in range(n):
-        result *=(i+1)
-    return result
-
 
 def it(n):
     c=0
@@ -20,7 +11,7 @@ def it(n):
 
 n = int.from_bytes(bytearray(it(200)), 'big')
 
-def ff(n, size, compression):
+def ff(n):
     """ returns the decomposition of n in a factorials base """
     factors = []
     remainder = n
@@ -36,10 +27,6 @@ def ff(n, size, compression):
         a = int( remainder / last_factorial )
         factors += [(k, a)]
         remainder = remainder % last_factorial
-        # estimate the compression factor 
-        factors += [(0, remainder)]
-        compression += [int(100*len(zlib.compress(pickle.dumps(factors)))/size)]
-        factors.pop()
         if remainder == 1:
             factors += [(0, 1)]
             break
@@ -52,13 +39,9 @@ def expand_factors(factors):
         res += f[1]*math.factorial(f[0])
     return res
 
-c = []
-f = ff(n, 200, c)
+f = ff(n)
 print(n)
 print( f )
 print( len(f) )
 print( expand_factors(f) == n )
-print(c)
-
-# expecting [(4,2), (2, 1)]
 
